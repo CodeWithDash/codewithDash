@@ -1,0 +1,48 @@
+.tabs-section {
+    max-width: 75%;
+    min-width: 100px;
+    }
+    .items-section {
+    max-width: 75%;
+    padding-left: 10px;
+    }
+    .img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    }
+    .responsive-item {
+    width: 100%;
+    max-width: 180px;
+    margin: auto;
+    }
+    .cart-table {
+    overflow-x: auto;
+    }
+    .total-bill {
+    font-weight: bold;
+    text-align: right;
+    padding: 10px 0;
+    }
+    .print-button {
+    margin-top: 10px;
+    width: 100%;
+    }
+    @media only screen and (max-width: 600px) {
+    .tabs-section {
+    max-width: 50%;
+    }
+    .items-section {
+    max-width: 70%;
+    }
+    }
+    .table-container lightning-datatable {
+    width: 100%;
+    overflow-x: auto;
+    }
+    @media (max-width: 600px) {
+    .table-container lightning-datatable {
+    font-size: 12px;
+    overflow-x: scroll;
+    }
+    }

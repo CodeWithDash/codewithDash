@@ -1,0 +1,377 @@
+<template>
+    <div class="slds-align_absolute-center">
+    <img src={food}/></div>
+    <div>
+    <div class="slds-grid slds-wrap slds-no-print">
+    <div class="slds-col slds-size_12-of-12 slds-small-size_6-of-12 sldsmedium-size_4-of-12">
+    <lightning-input label="Search Item" type="Search" placeholder="Enter
+    Item Name" value={searchVal} onchange={Searching} class="searchinput"></lightning-input>
+    </div>
+    <div class="slds-small-size_3-of-12 slds-float_left" >
+    <lightning-combobox label="Table" value={tableValue}
+    placeholder="Select
+    Table" options={tableoptions} onchange={handleTableChange} required
+    style="margin-left:22rem"></lightning-combobox>
+    </div>
+    <div class="slds-small-size_2-of-12 slds-float_left" >
+    <lightning-button variant="brand" label="Countuer Close"
+    class="buttonStyle" onclick={closeCounter} style="marginleft:25rem"></lightning-button>
+    </div>
+    <!--<div class="slds-col slds-size_12-of-12 slds-small-size_2-of-12 sldssmall-size_1-of-12 ">
+    <lightning-combobox label="Payment Status" value={payvalue}
+    placeholder="Select Payment
+    Status" options={paymentoptions} onchange={handlePaymentChange}></lightningcombobox>
+    </div>-->
+    </div>
+    </div>
+    <div class="slds-grid slds-gutters slds-wrap slds-no-print">
+    <div class="slds-col slds-size_12-of-12 slds-medium-size_7-of-12">
+    <lightning-tabset variant="scoped" active-tab-value={activeTab}>
+    <!-- Home Tab -->
+    <lightning-tab label="Home" value="home" >
+    <template for:each={homeItems} for:item="item">
+    <div class="slds-visual-picker slds-visual-picker_medium"
+    key={item.Id}>
+    <input
+    type="checkbox"
+    onchange={handleCheck}
+    name={item.Id}
+    id={item.Id}
+    value={item.Id}
+    ></input>
+    <label for={item.Id}>
+    <span
+    class="
+    slds-visual-picker__figure slds-visual-picker__text
+    slds-align_absolute-center
+    "
+    >
+    <span>
+    <div class="img">
+    <img src={item.picture__c}/>
+    </div>
+    </span>
+    </span>
+    <span class="slds-visual-picker__body">
+    <span class="slds-text-heading_small"
+    >{item.item_Name__c}</span
+    >
+    <span class="slds-text-title">{item.Price__c}</span>
+    </span>
+    <span
+    class="slds-icon_container slds-visual-picker__textcheck"
+    >
+    <lightning-icon
+    icon-name="utility:check"
+    size="xx-small"
+    variant="inverse"
+    ></lightning-icon>
+    </span>
+    </label>
+    </div>
+    </template>
+    <!-- non search or default these details wiil show in Home Tab--->
+    <template if:false={homeItems.length}>
+    <!--<div class="table-container">
+    <lightning-datatable
+    key-field="id"
+    columns={columns}
+    data={progressData}
+    hide-checkbox-column
+    onrowaction={handleRowAction}
+    >
+    </lightning-datatable>-->
+    <lightning-tabset active-tab-value={activeTab}>
+    <div class="slds-col slds-size_12-of-12 slds-small-size_6-of-12 sldsmedium-size_5-of-12">
+    <lightning-input label="Bill Number" type="Search" placeholder="Enter
+    Bill number" value={searchBillVal} onchange={SearchBillNumber} class="searchinput"></lightning-input>
+    </div>
+    <p>Today Counter:{todayCounter}</p>
+    <lightning-tab label="In Progress Orders" value="Progress">
+    <lightning-datatable
+    key-field="id"
+    columns={columns}
+    data={progressData}
+    hide-checkbox-column
+    onrowaction={handleRowAction}
+    >
+    </lightning-datatable>
+    </lightning-tab>
+    <lightning-tab label="Completed Orders" value="Completed">
+    <lightning-datatable
+    key-field="id"
+    columns={columns}
+    data={CleardData}
+    hide-checkbox-column
+    onrowaction={handleRowAction}
+    >
+    </lightning-datatable>
+    </lightning-tab>
+    </lightning-tabset>
+    </template>
+    </lightning-tab>
+    <!-- Drink Tab -->
+    <lightning-tab label="Drink" value="Drinks">
+    <!--visual picker--->
+    <fieldset class="slds-form-element">
+    <div class="slds-form-element__control">
+    <template for:each={drinks} for:item="item">
+    <div class="slds-visual-picker slds-visual-picker_medium"
+    key={item.Id}>
+    <input
+    type="checkbox"
+    onchange={handleCheck}
+    name={item.Id}
+    id={item.Id}
+    value={item.Id}
+    ></input>
+    <label for={item.Id}>
+    <span
+    class="
+    slds-visual-picker__figure slds-visual-picker__text
+    slds-align_absolute-center
+    "
+    >
+    <span>
+    <div class="img">
+    <img src={item.picture__c}/>
+    </div>
+    </span>
+    </span>
+    <span class="slds-visual-picker__body">
+    <span class="slds-text-heading_small"
+    >{item.item_Name__c}</span
+    >
+    <span class="slds-text-title">{item.Price__c}</span>
+    </span>
+    <span
+    class="slds-icon_container slds-visual-picker__textcheck"
+    >
+    <lightning-icon
+    icon-name="utility:check"
+    size="xx-small"
+    variant="inverse"
+    ></lightning-icon>
+    </span>
+    </label>
+    </div>
+    </template>
+    </div>
+    </fieldset>
+    <!--- visual picker end-->
+    </lightning-tab>
+    <!-- Veg Fried Rice Tab -->
+    <lightning-tab label="Veg Fried Rice" >
+    <template for:each={vegFriedRice} for:item="item">
+    <div class="slds-visual-picker slds-visual-picker_medium"
+    key={item.Id}>
+    <input
+    type="checkbox"
+    onchange={handleCheck}
+    name={item.Id}
+    id={item.Id}
+    value={item.Id}
+    ></input>
+    <label for={item.Id}>
+    <span
+    class="
+    slds-visual-picker__figure slds-visual-picker__text
+    slds-align_absolute-center
+    "
+    >
+    <span>
+    <div class="img">
+    <img src={item.picture__c}/>
+    </div>
+    </span>
+    </span>
+    <span class="slds-visual-picker__body">
+    <span class="slds-text-heading_small"
+    >{item.item_Name__c}</span
+    >
+    <span class="slds-text-title">{item.Price__c}</span>
+    </span>
+    <span
+    class="slds-icon_container slds-visual-picker__textcheck"
+    >
+    <lightning-icon
+    icon-name="utility:check"
+    size="xx-small"
+    variant="inverse"
+    ></lightning-icon>
+    </span>
+    </label>
+    </div>
+    </template>
+    </lightning-tab>
+    <!-- Other Items Tab -->
+    <lightning-tab label="Other Items" >
+    <template for:each={otherItems} for:item="item">
+    <div class="slds-visual-picker slds-visual-picker_medium"
+    key={item.Id}>
+    <input
+    type="checkbox"
+    onchange={handleCheck}
+    name={item.Id}
+    id={item.Id}
+    value={item.Id}
+    ></input>
+    <label for={item.Id}>
+    <span
+    class="
+    slds-visual-picker__figure slds-visual-picker__text
+    slds-align_absolute-center
+    "
+    >
+    <span>
+    <div class="img">
+    <img src={item.picture__c}/>
+    </div>
+    </span>
+    </span>
+    <span class="slds-visual-picker__body">
+    <span class="slds-text-heading_small"
+    >{item.item_Name__c}</span
+    >
+    <span class="slds-text-title">{item.Price__c}</span>
+    </span>
+    <span
+    class="slds-icon_container slds-visual-picker__textcheck"
+    >
+    <lightning-icon
+    icon-name="utility:check"
+    size="xx-small"
+    variant="inverse"
+    ></lightning-icon>
+    </span>
+    </label>
+    </div>
+    </template>
+    </lightning-tab>
+    <lightning-tab label=" "
+    ></lightning-tab>
+    <lightning-tab label=" "
+    ></lightning-tab>
+    <lightning-tab label=" "
+    ></lightning-tab>
+    <lightning-tab label=" "
+    ></lightning-tab>
+    <lightning-tab label=" "
+    ></lightning-tab>
+    <lightning-tab label="Ravi Kumar Achana" ></lightning-tab>
+    <!-- Other Tabs (Drink, Veg Fried Rice, Other Items) follow similar
+    structure as Home Tab -->
+    </lightning-tabset>
+    </div>
+    <div class="slds-col slds-size_12-of-12 slds-medium-size_4-of-12">
+    <div class="slds-scrollable_x">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered
+    slds-table_striped">
+    <thead>
+    <tr>
+    <th></th>
+    <th>Item Name</th>
+    <th class="slds-text-align_center">Quantity</th>
+    <th class="slds-text-align_right">Price</th>
+    <th class="slds-text-align_right">Sum</th>
+    </tr>
+    </thead>
+    <tbody>
+    <template for:each={selectedItems} for:item="selectedItem">
+    <tr key={selectedItem.id}>
+    <td>
+    <lightning-button-icon icon-name="action:delete"
+    variant="brand" class="buttonStyle" alternative-text="delete" title="delete"
+    onclick={deleteItem} data-id={selectedItem.id}></lightning-button-icon>
+    </td>
+    <td>{selectedItem.name}</td>
+    <td class="slds-text-align_center">
+    <lightning-button-icon icon-name="utility:dash" alternativetext="remove" size="x-small" variant="brand" title="remove"
+    onclick={decreaseQuantity} data-id={selectedItem.id}
+    disabled={selectedItem.decreaseDisable}></lightning-button-icon>
+    &nbsp;{selectedItem.quantity}&nbsp;
+    <lightning-button-icon icon-name="utility:add" alternativetext="add" size="x-small" variant="brand" title="add"
+    onclick={increaseQuantity} data-id={selectedItem.id}></lightning-button-icon>
+    </td>
+    <td class="slds-text-align_right">{selectedItem.price}</td>
+    <td class="slds-text-align_right">{selectedItem.sum}</td>
+    </tr>
+    </template>
+    </tbody>
+    <tfoot if:true={selectedItems.length}>
+    <tr>
+    <td colspan="3"></td>
+    <td>Total bill</td>
+    <td>{totalBill}</td>
+    </tr>
+    <tr>
+    <!-- <td colspan="3"></td>-->
+    <!-- <div class="slds-col slds-size_12-of-12 slds-small-size_2-of12 slds-small-size_1-of-12 slds-m-right_large">-->
+    <!--</div>-->
+    <!--<div class="slds-col slds-size_12-of-12 slds-small-size_2-of-12 sldssmall-size_1-of-12 ">
+    <lightning-combobox label="Payment Status" value={payvalue}
+    placeholder="Select Payment
+    Status" options={paymentoptions} onchange={handlePaymentChange}></lightningcombobox>
+    </div>-->
+    <!-- <div class="slds-col slds-size_12-of-12 slds-small-size_1-of-12 sldssmall-size_1-of-12">-->
+    <!-- </div>-->
+    <!-- <td><lightning-button variant="brand" label="Print"
+    class="buttonStyle" onclick={generatePrint}></lightning-button></td>-->
+    <td><lightning-input type="checkbox" label="Paid" name="Paid"
+    onchange={changePay} value={isPaid}></lightning-input></td>
+    <td><lightning-button variant="brand" label="Order"
+    class="buttonStyle" onclick={createOrderRec}></lightning-button></td>
+    </tr>
+    </tfoot>
+    </table>
+    </div>
+    </div>
+    </div>
+    <!-- View Modal with lightning-record-view-form -->
+    <template if:true={isViewModalOpen}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-inopen">
+    <div class="slds-modal__container">
+    <header class="slds-modal__header">
+    <button class="slds-button slds-button_icon sldsmodal__close" onclick={closeModal}>
+    <lightning-icon icon-name="utility:close" alternativetext="Close" size="small"></lightning-icon>
+    </button>
+    <h2 class="slds-text-heading_medium">View Order
+    Details</h2>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium">
+    <lightning-record-view-form record-id={viewRecordId}
+    object-api-name="Order__c">
+    <lightning-output-field fieldname="Order_Status__c"></lightning-output-field>
+    <lightning-output-field fieldname="Payment_status__c"></lightning-output-field>
+    <lightning-output-field fieldname="Item_Details__c"></lightning-output-field>
+    </lightning-record-view-form>
+    </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- Edit Modal with lightning-record-edit-form -->
+    <template if:true={isEditModalOpen}>
+    <section role="dialog" tabindex="-1" class="slds-modal slds-fade-inopen">
+    <div class="slds-modal__container">
+    <header class="slds-modal__header">
+    <button class="slds-button slds-button_icon sldsmodal__close" onclick={closeModal}>
+    <lightning-icon icon-name="utility:close" alternativetext="Close" size="small"></lightning-icon>
+    </button>
+    <h2 class="slds-text-heading_medium">Edit Order
+    Details</h2>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium">
+    <lightning-record-edit-form record-id={editRecordId}
+    object-api-name="Order__c" onsuccess={handleSaveSuccess}>
+    <lightning-input-field fieldname="Order_Status__c"></lightning-input-field>
+    <lightning-input-field fieldname="Payment_status__c"></lightning-input-field>
+    <lightning-button variant="brand" type="submit"
+    label="Save"></lightning-button>
+    </lightning-record-edit-form>
+    </div>
+    </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    </template>
