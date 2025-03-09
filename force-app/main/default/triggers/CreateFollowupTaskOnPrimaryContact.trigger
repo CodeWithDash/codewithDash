@@ -20,6 +20,9 @@ trigger CreateFollowupTaskOnPrimaryContact on Case (after insert) {
         }
     }
     if(!tasklist.isEmpty()){
+        if(!Schema.sObjectType.Task.isCreatable){
+            throw new SecurityException('User do not have access to the task object');
+        }
         insert tasklist;
     }
     
