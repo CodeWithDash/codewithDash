@@ -1,3 +1,4 @@
+//Whenever create task checkbox gets checked for case on an account a followup task should be automatically created on primary contact of Account
 trigger CreateFollowupTaskOnPrimaryContact on Case (after insert) {
     list<Task> tasklist = new List<Task>();
     set<Id> accId = new set<Id>();
